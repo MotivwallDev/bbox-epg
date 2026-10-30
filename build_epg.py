@@ -19,9 +19,9 @@ from datetime import datetime
 SOURCE_URL = "https://xmltvfr.fr/xmltv/xmltv_fr.xz"
 HERE = os.path.dirname(os.path.abspath(__file__))
 # Programmes kept: those still running PAST_HOURS ago up to those starting within FUTURE_HOURS.
-# 48 h ahead keeps "Ce soir" working for a day if a daily run fails.
+# 4 days ahead (xmltvfr.fr publishes 5) keeps the guide usable through a few days of failed runs.
 PAST_HOURS = 3
-FUTURE_HOURS = 48
+FUTURE_HOURS = 96
 
 
 def parse_time(value):
