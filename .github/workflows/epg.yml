@@ -1,0 +1,39 @@
+# Daily TV guide for the Bbox remote apps, published on GitHub Pages:
+# https://motivwalldev.github.io/bbox-epg/epg.json
+name: Build EPG
+
+on:
+  schedule:
+    - cron: "30 3 * * *"   # xmltvfr.fr regenerates its files around 01:00-02:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  actions: write   # keepalive below
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python build_epg.py --out site/epg.json
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deploy
+        uses: actions/deploy-pages@v4
+      # GitHub disables scheduled workflows of public repos after 60 days without
+      # activity; this re-enables ours through the API (no commits).
+      - uses: gautamkrishnar/keepalive-workflow@v2
