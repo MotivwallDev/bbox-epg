@@ -1,5 +1,7 @@
 # Daily TV guide for the Bbox remote apps, published on GitHub Pages:
 # https://motivwalldev.github.io/bbox-epg/epg.json
+# GitHub pauses scheduled workflows of public repos after 60 days without commits
+# (it emails the owner first): re-enable it from the Actions tab, or push any change.
 name: Build EPG
 
 on:
@@ -11,7 +13,6 @@ permissions:
   contents: read
   pages: write
   id-token: write
-  actions: write   # keepalive below
 
 concurrency:
   group: pages
@@ -34,6 +35,3 @@ jobs:
           path: site
       - id: deploy
         uses: actions/deploy-pages@v4
-      # GitHub disables scheduled workflows of public repos after 60 days without
-      # activity; this re-enables ours through the API (no commits).
-      - uses: gautamkrishnar/keepalive-workflow@v2
