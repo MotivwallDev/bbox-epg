@@ -4,7 +4,7 @@ Programme TV des chaînes Bbox pour l'app « Télécommande pour Bbox ».
 
 - Source : [XML TV Fr](https://xmltvfr.fr) (fichier France, téléchargé une fois par jour).
 - `channels_map.json` : numéro de chaîne Bbox → identifiant XMLTV. Plusieurs numéros peuvent partager un identifiant.
-- `build_epg.py` : filtre le guide sur ces chaînes, de 3 h avant à 48 h après la génération, et écrit `site/epg.json`.
+- `build_epg.py` : filtre le guide sur ces chaînes, de 3 h avant à 4 jours après la génération, et écrit `site/epg.json`.
 - `.github/workflows/epg.yml` : exécution quotidienne et publication sur GitHub Pages.
 
 Format de `epg.json` :
